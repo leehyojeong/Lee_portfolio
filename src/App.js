@@ -1,36 +1,18 @@
-import axios from 'axios';
 import React from 'react';
+import { HashRouter, Route } from 'react-router-dom';
+import Home from './routes/Home';
+import Project from './routes/Project';
+import Navigation from './components/Navigation';
 import './App.css';
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      username: null
-    };
-  }
-
-  componentDidMount(){
-    // fetch('http://localhost:3001/api')
-    //   .then(res=>res.json())
-    //   .then(data=>this.setState({username: data.username}));
-    axios.get('/api/next')
-      .then((res)=>{
-        this.setState({username: res.data.username});
-      });
-  }
-
-  render(){
-    const {username} = this.state;
-    console.log(username);
-    return(
-      <div className="App">
-        <h2 className="hello-data">
-          {username?`Hello ${username}!`:'Hello World!'}
-        </h2>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Route path='/' exact={true} component={Home} />
+      <Route path='/project' component={Project} />
+    </HashRouter>
+  );
 }
 
 export default App;
